@@ -6,35 +6,38 @@ const talkingCalendar = function(date) {
   //let dateObject = new Date(dateArray[0], dateArray[1], dateArray[2]);
   //return dateObject.toString();
   let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  let endings = ['st', 'nd', 'rd', 'th'];
-  let month = months[dateArray[1] - 1];
-  let day = dateArray[2];
-  let year = dateArray[0];
+  let dayWEnding = dayWithEnding(dateArray[2]);
+  return `${months[dateArray[1] - 1]} ${dayWEnding}, ${dateArray[0]}`;
+};
+
+const dayWithEnding = function(dateInput) {
   let ending = '';
-  switch (day[1]) {
+  switch (dateInput[1]) {
     case '1':
-      if (day >= 11 && day <= 13) {
-        ending = endings[3];
+      if (dateInput >= 11 && dateInput <= 13) {
+        ending = 'th';
         break;
       };
-      ending = endings[0];
+      ending = 'st';
       break;
     case '2':
-      ending = endings[1];
+      ending = 'nd';
       break;
     case '3':
-      ending = endings[2];
+      ending = 'rd';
       break;
     default:
-      ending = endings[3];
+      ending = 'th';
       break;
   };
-  if (day[0] === '0') {
-    day = day[1];
+  return `${cutFirstDigit(dateInput)}${ending}`;
+};
+
+const cutFirstDigit = function(date) {
+  if (date[0] === '0') {
+    date = date[1];
   }
-  // ends in 1, 2, 3, except 11, 12, 13
-  let dateMessage = `${month} ${day}${ending}, ${year}`;
-  return dateMessage;
+  return date;
 };
 
 console.log(talkingCalendar("2017/12/02"));
