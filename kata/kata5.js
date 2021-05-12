@@ -4,13 +4,7 @@
 const urlEncode = function(text) {
   let textArray = text.trim().split('');
   let parsedArray = [];
-  textArray.forEach(char => {
-    if (char == " ") {
-      parsedArray.push('%20');
-    } else {
-      parsedArray.push(char);
-    }
-  });
+  textArray.forEach(char => { (char == " ") ? parsedArray.push('%20') : parsedArray.push(char) });
   return parsedArray.join('');
 };
 
